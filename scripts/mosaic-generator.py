@@ -11,31 +11,6 @@ FILENAME = Path(__file__).stem
 LOGGER = logging.getLogger(FILENAME)
 
 
-def main():
-    logging.basicConfig(
-        level=logging.DEBUG,
-        format="{levelname: <7} | {asctime} [{name}] {message}",
-        style="{",
-        stream=sys.stdout,
-    )
-
-    INPUT_DIR = Path(r"G:\personal\photo\workspace\dcim\2023\2023_12_27_tarentaise")
-    DST_PATH = Path(r"Z:\packages-dev\lxmImageProcessing\tmp") / "mosaic2.jpg"
-
-    run_cli(
-        [
-            str(DST_PATH),
-            str(INPUT_DIR),
-            "--image-extensions",
-            "jpg",
-            "--oiiotool",
-            r"F:\softwares\apps\oiio\build\2.3.10\oiiotool.exe",
-            # "--anamorphic-desqueeze",
-            # "1.8",
-        ]
-    )
-
-
 def generate_image_mosaic(
     src_paths: list[Path],
     dst_path: Path,
@@ -184,6 +159,13 @@ def run_cli(argv: list[str] = None) -> Path:
     argv = argv or sys.argv[1:]
     parsed = cli.parse_args(argv)
 
+    logging.basicConfig(
+        level=logging.DEBUG,
+        format="{levelname: <7} | {asctime} [{name}] {message}",
+        style="{",
+        stream=sys.stdout,
+    )
+
     input_paths: list[Path] = parsed.input_path
     image_extensions = parsed.image_extensions.split(",")
     src_paths = []
@@ -228,4 +210,4 @@ def run_cli(argv: list[str] = None) -> Path:
 
 
 if __name__ == "__main__":
-    main()
+    run_cli()
