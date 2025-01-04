@@ -1,0 +1,233 @@
+Group {
+ name LoogDeveloper
+ tile_color 0xb6dfaa00
+ note_font_color 0xefefefff
+ addUserKnob {20 User l Developer}
+ addUserKnob {26 text_title l "" +STARTLINE T "<h1>Loog Developer</h1>"}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {26 text_base l "" +STARTLINE T "<h3>Film Base  </h3>"}
+ addUserKnob {6 enable_base l "Enable" -STARTLINE t "Enable the base conversion transform."}
+ enable_base 1
+ addUserKnob {26 text_base_desc l "" +STARTLINE T "Sample the most unexposed area of the <b>negative</b>."}
+ addUserKnob {41 _base l "" +STARTLINE t "Sample the most unexposed area of the negative." T densities_above_base.base}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {26 text_white_balance l "" +STARTLINE T "<h3>White Balance  </h3>"}
+ addUserKnob {6 enable_white_balance l "Enable" -STARTLINE t "Enable the white_balance transform."}
+ enable_white_balance 1
+ addUserKnob {41 _white_balance l "" +STARTLINE t "Change the RGB gain to adjust the temparture of the picture." T white_balance.power}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {26 text_tonescale l "" +STARTLINE T "<h3>Luminance Balance  </h3>"}
+ addUserKnob {6 enable_tonescale l "Enable" -STARTLINE t "Enable the tonescale transform."}
+ enable_tonescale 1
+ addUserKnob {7 pivot_x l "Pivot X"}
+ pivot_x 0.5
+ addUserKnob {7 pivot_y l "Pivot Y"}
+ pivot_y 0.5
+ addUserKnob {41 _slope l "Slope" t "slope of the tone curve" T Tonemap_PiecewisePower.m}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {26 text_grading l "" +STARTLINE T "<h3>Grading  </h3>"}
+ addUserKnob {41 _saturation l "Pre-Saturation" +STARTLINE t "tweak saturation before any processing" T presaturation.saturation}
+ addUserKnob {20 saturation_weights_grp l "weights" n 1}
+ saturation_weights_grp 0
+ addUserKnob {41 _weight_r l "weight R" +STARTLINE t "saturation wieght for R channel" T presaturation.wR}
+ addUserKnob {41 _weight_g l "weight G" +STARTLINE t "saturation wieght for G channel" T presaturation.wG}
+ addUserKnob {41 _weight_b l "weight B" +STARTLINE t "saturation wieght for B channel" T presaturation.wB}
+ addUserKnob {26 pre_buttons1 l "" +STARTLINE T " "}
+ addUserKnob {22 set_srgb l "sRGB" -STARTLINE T "n=nuke.thisNode()\nn['_weight_r'].setValue(0.21263900)\nn['_weight_g'].setValue(0.71516867)\nn['_weight_b'].setValue(0.07219231)"}
+ addUserKnob {22 set_acescg l "ACEScg" -STARTLINE T "n=nuke.thisNode()\nn['_weight_r'].setValue(0.27222871)\nn['_weight_g'].setValue(0.67408176)\nn['_weight_b'].setValue(0.05368951)"}
+ addUserKnob {22 set_dcip3 l "DCI-P3" -STARTLINE T "n=nuke.thisNode()\nn['_weight_r'].setValue(0.20949167)\nn['_weight_g'].setValue(0.72159525)\nn['_weight_b'].setValue(0.06891306)"}
+ addUserKnob {22 set_p3d65 l "P3 (D65)" -STARTLINE T "n=nuke.thisNode()\nn['_weight_r'].setValue(0.22897456)\nn['_weight_g'].setValue(0.69173852)\nn['_weight_b'].setValue(0.07928691)"}
+ addUserKnob {22 set_bt2020 l "BT.2020" -STARTLINE T "n=nuke.thisNode()\nn['_weight_r'].setValue(0.26270021)\nn['_weight_g'].setValue(0.67799807)\nn['_weight_b'].setValue(0.05930171)"}
+ addUserKnob {26 pre_buttons2 l "" +STARTLINE T " "}
+ addUserKnob {22 set_awg3 l "ARRI Wide Gamut 3" -STARTLINE T "n=nuke.thisNode()\nn['_weight_r'].setValue(0.29195377)\nn['_weight_g'].setValue(0.82384104)\nn['_weight_b'].setValue(-0.11579482)"}
+ addUserKnob {22 set_awg4 l "ARRI Wide Gamut 4" -STARTLINE T "n=nuke.thisNode()\nn['_weight_r'].setValue(0.25452417)\nn['_weight_g'].setValue(0.78147773)\nn['_weight_b'].setValue(-0.03600190)"}
+ addUserKnob {26 pre_buttons3 l "" +STARTLINE T " "}
+ addUserKnob {22 set_sgamut3 l "S-Gamut 3" -STARTLINE T "n=nuke.thisNode()\nn['_weight_r'].setValue(0.27097967)\nn['_weight_g'].setValue(0.78660641)\nn['_weight_b'].setValue(-0.05758608)"}
+ addUserKnob {22 set_dwg l "DaVinci Wide Gamut" -STARTLINE T "n=nuke.thisNode()\nn['_weight_r'].setValue(0.27411851)\nn['_weight_g'].setValue(0.87363189)\nn['_weight_b'].setValue(-0.14775040)"}
+ addUserKnob {20 About}
+ addUserKnob {26 toolName l name T LoogDeveloper}
+ addUserKnob {26 toolVersion l version T 0.2.0}
+ addUserKnob {26 toolAuthor l author T "<a style=\"color: rgb(200,200,200);\" href=\"https://mrlixm.github.io/\">Liam Collod</a>"}
+ addUserKnob {26 toolDescription l description T "Convert a raw file of a film negative to a positive image."}
+ addUserKnob {26 toolUrl l url T "<a style=\"color: rgb(200,200,200);\" href=\"https://github.com/MrLixm/Foundry_Nuke\">TODO</a>"}
+}
+ Input {
+  inputs 0
+  name raw_negative
+  xpos 0
+  ypos 0
+ }
+ Expression {
+  temp_name0 L
+  temp_expr0 wR*r+wG*g+wB*b
+  expr0 L+saturation.r*(r-L)
+  expr1 L+saturation.g*(g-L)
+  expr2 L+saturation.b*(b-L)
+  name presaturation
+  addUserKnob {20 User l "Saturation"}
+  addUserKnob {18 saturation R 0 2}
+  saturation 1
+  addUserKnob {7 wR}
+  wR 0.212639
+  addUserKnob {7 wG}
+  wG 0.71516867
+  addUserKnob {7 wB}
+  wB 0.07219231
+  addUserKnob {20 About}
+  addUserKnob {26 toolName l name T OCIOSaturation}
+  addUserKnob {26 toolVersion l version T 1.1.0-edited}
+  addUserKnob {26 toolAuthor l author T "<a style=\"color: rgb(200,200,200);\" href=\"https://mrlixm.github.io/\">Liam Collod</a>"}
+  addUserKnob {26 toolDescription l description T "Saturation based on OCIO implementation."}
+  addUserKnob {26 toolUrl l url T "<a style=\"color: rgb(200,200,200);\" href=\"https://github.com/MrLixm/Foundry_Nuke\">https://github.com/MrLixm/Foundry_Nuke</a>"}
+  addUserKnob {26 toolRef l "Reference" +STARTLINE T "<a style=\"color: rgb(200,200,200);\" href=\"https://community.acescentral.com/t/notice-of-meeting-aces-output-transforms-architecture-vwg-meeting-22-07-07-2021/3872/13?u=mrlixm\">Thomas Mansencal</a>"}
+ }
+ Expression {
+  disable {{!parent.enable_base}}
+  expr0 "r / base_saturated.r"
+  expr1 "g / base_saturated.g"
+  expr2 "b / base_saturated.b"
+  name densities_above_base
+  label "[value base]"
+  xpos 0
+  ypos 60
+  addUserKnob {20 User}
+  addUserKnob {26 label_base l "" T "note this value is without the pre-saturation applied"}
+  addUserKnob {18 base}
+  addUserKnob {7 base_luma}
+  base_luma {{"presaturation.wR * base.r + presaturation.wG * base.g + presaturation.wB * base.b"}}
+  addUserKnob {6 base_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {18 base_saturated}
+  base_saturated {
+    {{base_luma + presaturation.saturation.r * (base.r - base_luma)}}
+    {{base_luma + presaturation.saturation.g * (base.g - base_luma)}}
+    {{base_luma + presaturation.saturation.b * (base.b - base_luma)}}
+  }
+ }
+ Expression {
+  disable {{!parent.enable_white_balance}}
+  expr0 "pow(r, power.r)"
+  expr1 "pow(g, power.g)"
+  expr2 "pow(b, power.b)"
+  name white_balance
+  label "[value power]"
+  xpos 0
+  ypos 120
+  addUserKnob {20 User}
+  addUserKnob {18 power R 1 3}
+  power {1 1 1}
+  addUserKnob {6 power_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+ }
+ Expression {
+  expr0 "1 / pow(10, r)"
+  expr1 "1 / pow(10, g)"
+  expr2 "1 / pow(10, b)"
+  name density_to_transmittance
+  xpos 0
+  ypos 180
+ }
+ Group {
+  name Tonemap_PiecewisePower
+  xpos 0
+  ypos 240
+  disable {{!parent.enable_tonescale}}
+  addUserKnob {20 Tonemap_PiecewisePower_tab l Tonemap_PiecewisePower}
+  addUserKnob {78 pv l pivot n 2}
+  pv {{parent.pivot_x} {parent.pivot_y}}
+  addUserKnob {7 m l slope t "linear segment m" R 0 10}
+  m 3
+  addUserKnob {7 ls l "shoulder length"}
+  ls 0.1
+  addUserKnob {7 lt l "toe length"}
+  addUserKnob {78 pw l white t "xy coordinate of maximum asymptotic value" n 2}
+  pw {1 1}
+  addUserKnob {78 pb l black t "xy coordinate of minimum asymptotic value" n 2}
+  addUserKnob {6 invert +STARTLINE}
+  addUserKnob {26 ""}
+  addUserKnob {20 calculations_grp l calculations n 1}
+  calculations_grp 0
+  addUserKnob {12 pt}
+  pt {{-lt/(sqrt(m*m+1))+pv.0} {-(m*lt)/(sqrt(m*m+1))+pv.1}}
+  addUserKnob {12 ps}
+  ps {{ls/(sqrt(m*m+1))+pv.0} {(m*ls)/(sqrt(m*m+1))+pv.1}}
+  addUserKnob {7 cb t "linear segment offset" R -10 10}
+  cb {{pt.y-pt.x*m}}
+  addUserKnob {7 bt R 0 10}
+  bt {{(m*(pt.x-pb.0))/(pt.y-pb.1)}}
+  addUserKnob {7 at R 0 10}
+  at {{log(pt.y-pb.1)-bt*log(pt.x-pb.0)}}
+  addUserKnob {7 bs R 0 10}
+  bs {{(m*(pw.0-ps.x))/(pw.1-ps.y)}}
+  addUserKnob {7 as R 0 10}
+  as {{log(pw.1-ps.y)-bs*log(pw.0-ps.x)}}
+  addUserKnob {20 endGroup n -1}
+ }
+  Input {
+   inputs 0
+   name Input
+   xpos -40
+   ypos 50
+  }
+  Dot {
+   name Dot1
+   xpos -6
+   ypos 114
+  }
+ set N3f4b4490 [stack 0]
+  Expression {
+   expr0 r<=0?0:r<=pt.y?exp((log(r-pb.1)-at)/bt)+pb.0:r<ps.y?(r-cb)/m:-exp((log(-(r-pw.1))-as)/bs)+pw.0
+   expr1 g<=0?0:g<=pt.y?exp((log(g-pb.1)-at)/bt)+pb.0:g<ps.y?(g-cb)/m:-exp((log(-(g-pw.1))-as)/bs)+pw.0
+   expr2 b<=0?0:b<=pt.y?exp((log(b-pb.1)-at)/bt)+pb.0:b<ps.y?(b-cb)/m:-exp((log(-(b-pw.1))-as)/bs)+pw.0
+   channel3 none
+   name InvHableTonemap1
+   xpos 70
+   ypos 141
+  }
+ push $N3f4b4490
+  Expression {
+   expr0 r<=0?0:r<=pt.x?exp(at+bt*log(r-pb.0))+pb.1:r<ps.x?m*r+cb:-exp(as+bs*log(-(r-pw.0)))+pw.1
+   expr1 g<=0?0:g<=pt.x?exp(at+bt*log(g-pb.0))+pb.1:g<ps.x?m*g+cb:-exp(as+bs*log(-(g-pw.0)))+pw.1
+   expr2 b<=0?0:b<=pt.x?exp(at+bt*log(b-pb.0))+pb.1:b<ps.x?m*b+cb:-exp(as+bs*log(-(b-pw.0)))+pw.1
+   expr3 (r<=0?0:r<=pt.x?(bt*(exp(bt*log(r-pb.0)+at))/(r-pb.0)):r<ps.x?m:bs*exp(bs*log(-r+pw.0)+as)/(-r+pw.0))/m
+   name HableTonemap
+   xpos -150
+   ypos 141
+  }
+  Switch {
+   inputs 2
+   which {{parent.invert}}
+   name SwitchDirection
+   xpos -40
+   ypos 201
+  }
+  Output {
+   name Output
+   xpos -40
+   ypos 260
+  }
+  StickyNote {
+   inputs 0
+   name StickyNote1
+   tile_color 0x40454aff
+   label "<b>John Hable Piecewise Power Tonemap</b>\nhttp://filmicworlds.com/blog/filmic-tonemapping-with-piecewise-power-curves/\nhttps://www.desmos.com/calculator/vb71nnufqe\n\nModified with parameters to control\n<b>pv</b> - (x,y) coordinate for the pv point\n<b>m</b> - m of the linear section\n<b>shoulder length</b> - length of the linear section from pv to shoulder\n<b>toe length</b> - length of the linear section from pv to toe\n<b>pw</b> - position of the shoulder asymptote\n<b>pb</b> - position of the toe asymptote"
+   note_font Helvetica
+   note_font_size 14
+   xpos 209
+   ypos 86
+  }
+ end_group
+ Output {
+  name Output1
+  xpos 0
+  ypos 300
+ }
+StickyNote {
+ inputs 0
+ name StickyNote1
+ tile_color 0x40454aff
+ label "Node made by Jed Smith\nhttps://github.com/jedypod/nuke-colortools/blob/master/toolsets/transfer_function/Tonemap_PiecewisePower.nk"
+ note_font Helvetica
+ note_font_size 14
+ xpos 120
+ ypos 240
+}
+end_group

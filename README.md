@@ -12,22 +12,28 @@ Personal resources for image-processing which include topics like :
 
 ## content
 
-You can find 3 software components:
+You can find 4 software components:
 
 - _libraries_: collection of reusable code
 - _clis_: command line interfaces programs
 - _scripts_: entry point mixing the usage of _libraries_ and _clis_
+- _plugins_: to be used in other software
 
 | tool                                                                         | description                                                 | type    | tag                                                 |
 |------------------------------------------------------------------------------|-------------------------------------------------------------|---------|-----------------------------------------------------|
 | [raw-to-dng.py](scripts/raw-to-dng.py)                                       | batch converting raw files to dng                           | script  | ![photo](https://img.shields.io/badge/photo-43896b) |
 | [raw-exr-converter.py](scripts/raw-exr-converter.py)                         | batch converting raw files to OpenEXR, including debayering | script  | ![photo](https://img.shields.io/badge/photo-43896b) |
-| [rw2-to-dng.py](scripts/rw2-to-dng.py)                                       | batch converting panasonic raw file to dng (personal use)   | script  | ![photo](https://img.shields.io/badge/photo-43896b) |
+| [rw2-to-dng.py](scripts/rw2-to-dng.py)                                       | batch converting panasonic raw file to dng (personal need)  | script  | ![photo](https://img.shields.io/badge/photo-43896b) |
 | [mosaic-generator.py](scripts/mosaic-generator.py)                           | combine multiple image to a single big mosaic of image      | script  | ![photo](https://img.shields.io/badge/photo-43896b) |
 | [ffmpeg-apple-prores-converter.py](scripts/ffmpeg-apple-prores-converter.py) | encode to apple prores using ffmpeg                         | script  | ![video](https://img.shields.io/badge/video-4c78a6) |
 | [lxmimgproc](libraries/lxmimgproc)                                           | python wrapper to interract with i-o libraries              | library | ![photo](https://img.shields.io/badge/photo-43896b) |
+| [loog](plugins/loog)                                                         | nuke node to develop film negatives                         | plugin  | ![photo](https://img.shields.io/badge/photo-43896b) |
+
+Each tool should come with its own documentation for details.
 
 ## usage pre-requisites
+
+Most tool (except _plugins_) will require python and some dependencies.
 
 - [uv](https://docs.astral.sh/uv/) is [installed](https://docs.astral.sh/uv/getting-started/installation/)
 - You have access to an [OpenImageIO](https://openimageio.readthedocs.io) python wheel.
