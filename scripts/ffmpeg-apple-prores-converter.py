@@ -13,33 +13,6 @@ FILENAME = Path(__file__).stem
 LOGGER = logging.getLogger(FILENAME)
 
 
-def main():
-    logging.basicConfig(
-        level=logging.DEBUG,
-        format="{levelname: <7} | {asctime} [{name}:{funcName}] {message}",
-        style="{",
-        stream=sys.stdout,
-    )
-
-    input_path = Path(
-        r"G:\personal\photo\workspace\dcim\2024\2024_04_13_salieres\P1000653.MOV"
-    )
-    dst_path = input_path.with_stem(input_path.stem + ".{datarate}.q{quality}")
-    dst_path = dst_path.with_suffix(".mov")
-
-    result = run_cli(
-        [
-            str(dst_path),
-            str(input_path),
-            "--datarate",
-            FFmpegProResDataRate.s422.name,
-            "--quality",
-            "10",
-        ]
-    )
-    print(f"result at '{result}'")
-
-
 def convert_to_prores(
     ffmpeg_path: Path,
     input_path: Path,
@@ -142,6 +115,13 @@ def run_cli(argv: list[str] = None) -> Path:
     argv = argv or sys.argv[1:]
     parsed = cli.parse_args(argv)
 
+    logging.basicConfig(
+        level=logging.DEBUG,
+        format="{levelname: <7} | {asctime} [{name}:{funcName}] {message}",
+        style="{",
+        stream=sys.stdout,
+    )
+
     input_path: Path = parsed.input_path
     output_path: str = str(parsed.output_path)
 
@@ -176,4 +156,4 @@ def run_cli(argv: list[str] = None) -> Path:
 
 
 if __name__ == "__main__":
-    main()
+    run_cli()
