@@ -5,19 +5,19 @@ Group {
  addUserKnob {20 User l Developer}
  addUserKnob {26 text_title l "" +STARTLINE T "<h1>Loog Developer</h1>"}
  addUserKnob {26 "" +STARTLINE}
- addUserKnob {26 text_base l "" +STARTLINE T "<h3>Film Base  </h3>"}
- addUserKnob {6 enable_base l "Enable" -STARTLINE t "Enable the base conversion transform."}
+ addUserKnob {6 enable_base l "" +STARTLINE t "Enable the base conversion transform."}
+ addUserKnob {26 text_base l "" -STARTLINE T "<h3>Film Base  </h3>"}
  enable_base 1
  addUserKnob {26 text_base_desc l "" +STARTLINE T "Sample the most unexposed area of the <b>negative</b>."}
- addUserKnob {41 _base l "" +STARTLINE t "Sample the most unexposed area of the negative." T densities_above_base.base}
+ addUserKnob {41 _base l "color" +STARTLINE t "Sample the most unexposed area of the negative." T densities_above_base.base}
  addUserKnob {26 "" +STARTLINE}
- addUserKnob {26 text_white_balance l "" +STARTLINE T "<h3>White Balance  </h3>"}
- addUserKnob {6 enable_white_balance l "Enable" -STARTLINE t "Enable the white_balance transform."}
+ addUserKnob {6 enable_white_balance l "" +STARTLINE t "Enable the white_balance transform."}
+ addUserKnob {26 text_white_balance l "" -STARTLINE T "<h3>White Balance  </h3>"}
  enable_white_balance 1
- addUserKnob {41 _white_balance l "" +STARTLINE t "Change the RGB gain to adjust the temparture of the picture." T white_balance.power}
+ addUserKnob {41 _white_balance l "color" +STARTLINE t "Change the RGB gain to adjust the temperature of the picture." T white_balance.power}
  addUserKnob {26 "" +STARTLINE}
- addUserKnob {26 text_tonescale l "" +STARTLINE T "<h3>Luminance Balance  </h3>"}
- addUserKnob {6 enable_tonescale l "Enable" -STARTLINE t "Enable the tonescale transform."}
+ addUserKnob {6 enable_tonescale l "" +STARTLINE t "Enable the tonescale transform."}
+ addUserKnob {26 text_tonescale l "" -STARTLINE T "<h3>Luminance Balance  </h3>"}
  enable_tonescale 1
  addUserKnob {7 pivot_x l "Pivot X"}
  pivot_x 0.5
@@ -27,7 +27,7 @@ Group {
  addUserKnob {26 "" +STARTLINE}
  addUserKnob {20 About}
  addUserKnob {26 toolName l name T LoogDeveloper}
- addUserKnob {26 toolVersion l version T 0.3.0}
+ addUserKnob {26 toolVersion l version T 0.3.1}
  addUserKnob {26 toolAuthor l author T "<a style=\"color: rgb(200,200,200);\" href=\"https://mrlixm.github.io/\">Liam Collod</a>"}
  addUserKnob {26 toolDescription l description T "Convert a raw file of a film negative to a positive image."}
  addUserKnob {26 toolUrl l url T "<a style=\"color: rgb(200,200,200);\" href=\"https://github.com/MrLixm/image-processing-lxm\">https://github.com/MrLixm/image-processing-lxm</a>"}
