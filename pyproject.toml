@@ -7,14 +7,20 @@ requires-python = "==3.10.*"
 dependencies = [
     "cocoon",
     "numpy==1.26.*",
-    "openimageio; sys_platform == 'win32'",
+    "openimageio",
     "rawpy==0.19",
 ]
+
 
 [dependency-groups]
 dev = [
     "black>=24.10.0",
 ]
+
+[tool.uv]
+package = true
+# because we only specify a wheel for win32 yet
+environments = ["sys_platform == 'win32'"]
 
 [tool.uv.sources]
 cocoon = { git = "https://github.com/MrLixm/cocoon.git" }
