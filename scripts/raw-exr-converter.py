@@ -9,7 +9,6 @@ from typing import Any
 
 import cocoon
 
-from lxmimgproc.browse import get_dir_content
 from lxmimgproc.rawpyio import rawpy
 from lxmimgproc.rawpyio import DebayeringOptionsType
 from lxmimgproc.rawpyio import rawpyread_image
@@ -24,39 +23,6 @@ from lxmimgproc.oiioio import oiio
 __VERSION__ = "2.1.0"
 FILENAME = Path(__file__).stem
 LOGGER = logging.getLogger(FILENAME)
-
-
-def main():
-    logging.basicConfig(
-        level=logging.DEBUG,
-        format="{levelname: <7} | {asctime} [{name}] {message}",
-        style="{",
-        stream=sys.stdout,
-    )
-
-    INPUT_PATHS = get_dir_content(
-        Path(r"G:\personal\photo\workspace\dcim\2024\2024_06_20_mshootsweat"),
-        file_extensions=[".dng"],
-    )
-    print(f"processing {len(INPUT_PATHS)} files")
-
-    for index, INPUT_PATH in enumerate(INPUT_PATHS):
-        print(f"{index+1}/{len(INPUT_PATHS)} ...")
-        DST_PATH = INPUT_PATH.with_stem("{input_filestem}.{preset}.{colorspace}")
-        DST_PATH = DST_PATH.with_suffix(".exr")
-        run_cli(
-            [
-                str(DST_PATH),
-                str(INPUT_PATH),
-                "--colorspace",
-                "@native",
-                "--preset",
-                "normal",
-                "--overwrite-existing",
-                "--exiftool",
-                r"F:\softwares\apps\exiftool\build\12.70\exiftool.exe",
-            ]
-        )
 
 
 @dataclasses.dataclass
@@ -300,6 +266,13 @@ def run_cli(argv: list[str] = None):
     argv = argv or sys.argv[1:]
     parsed = cli.parse_args(argv)
 
+    logging.basicConfig(
+        level=logging.DEBUG,
+        format="{levelname: <7} | {asctime} [{name}] {message}",
+        style="{",
+        stream=sys.stdout,
+    )
+
     default_exiftool = os.getenv("EXIFTOOL")
 
     input_path: Path = parsed.input_path
@@ -401,4 +374,4 @@ def run_cli(argv: list[str] = None):
 
 
 if __name__ == "__main__":
-    main()
+    run_cli()
