@@ -4,8 +4,8 @@ import time
 from pathlib import Path
 
 THISDIR = Path(__file__).parent
-SCRIPTSDIR = THISDIR.parent / "scripts"
-SCRIPT = SCRIPTSDIR / "mosaic-generator.py"
+CLISDIR = THISDIR.parent / "clis"
+CLIPATH = CLISDIR / "mosaic-generator.py"
 
 INPUT_DIR = Path(r"G:\personal\photo\workspace\dcim\2023\2023_12_27_tarentaise")
 DST_PATH = Path(r"Z:\packages-dev\lxmImageProcessing\tmp") / "mosaic2.jpg"
@@ -17,7 +17,7 @@ def main():
     print(f"💬 processing '{INPUT_DIR.name}' ...")
     command = [
         sys.executable,
-        str(SCRIPT),
+        str(CLIPATH),
         str(DST_PATH),
         str(INPUT_DIR),
         "--image-extensions",

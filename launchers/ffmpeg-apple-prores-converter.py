@@ -7,8 +7,8 @@ from lxmimgproc.ffmpeg import FFmpegProResDataRate
 
 
 THISDIR = Path(__file__).parent
-SCRIPTSDIR = THISDIR.parent / "scripts"
-SCRIPT = SCRIPTSDIR / "ffmpeg-apple-prores-converter.py"
+CLISDIR = THISDIR.parent / "clis"
+CLIPATH = CLISDIR / "ffmpeg-apple-prores-converter.py"
 
 SRC_DIR = Path(
     r"G:\personal\photo\workspace\dcim\2024\2024_04_13_salieres\P1000653.MOV"
@@ -22,7 +22,7 @@ def main():
 
     command = [
         sys.executable,
-        str(SCRIPT),
+        str(CLIPATH),
         str(DST_PATH),
         str(SRC_DIR),
         "--datarate",

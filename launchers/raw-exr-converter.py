@@ -6,8 +6,8 @@ from pathlib import Path
 from lxmimgproc.browse import get_dir_content
 
 THISDIR = Path(__file__).parent
-SCRIPTSDIR = THISDIR.parent / "scripts"
-SCRIPT = SCRIPTSDIR / "raw-exr-converter.py"
+CLISDIR = THISDIR.parent / "clis"
+CLIPATH = CLISDIR / "raw-exr-converter.py"
 
 RAW_SRC_DIR = Path(r"G:\personal\photo\workspace\dcim\2024\2024_06_20_mshootsweat")
 EXIFTOOL_PATH = Path(r"F:\softwares\apps\exiftool\build\12.70\exiftool.exe")
@@ -28,7 +28,7 @@ def main():
 
         command = [
             sys.executable,
-            str(SCRIPT),
+            str(CLIPATH),
             str(dst_path),
             str(src_path),
             "--colorspace",
