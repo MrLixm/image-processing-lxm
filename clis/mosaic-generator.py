@@ -6,6 +6,7 @@ import subprocess
 import sys
 import time
 from pathlib import Path
+from typing import Optional
 
 FILENAME = Path(__file__).stem
 LOGGER = logging.getLogger(FILENAME)
@@ -103,7 +104,7 @@ def get_cli() -> argparse.ArgumentParser:
     parser.add_argument(
         "--oiiotool",
         type=Path,
-        default=Path(os.getenv("OIIOTOOL")),
+        default=os.getenv("OIIOTOOL"),
         help=(
             "filesystem path to the oiiotool executable."
             'if not provided the value is retrieved from an "OIIOTOOL" environment variable.'
@@ -183,12 +184,28 @@ def run_cli(argv: list[str] = None) -> Path:
     if dst_path in src_paths:
         src_paths.remove(dst_path)
 
-    oiiotool: Path = parsed.oiiotool
+    oiiotool: Optional[Path] = parsed.oiiotool
+    if oiiotool:
+        oiiotool = Path(oiiotool)
     anamorphic_desqueeze: float = parsed.anamorphic_desqueeze
     columns: int = parsed.columns
     gap: int = parsed.gap
     resize: float = parsed.resize
     tile_size = (resize * anamorphic_desqueeze, resize)
+
+    if not oiiotool:
+        print(
+            f"❌ no OIIOTOOL executable path could be found",
+            file=sys.stderr,
+        )
+        sys.exit(11)
+
+    elif not oiiotool.exists():
+        print(
+            f"❌ given OIIOTOOL executable path doesn't exist: {oiiotool}",
+            file=sys.stderr,
+        )
+        sys.exit(10)
 
     start_time = time.time()
     LOGGER.info(f"processing {len(src_paths)} files to '{dst_path}'")
@@ -203,9 +220,12 @@ def run_cli(argv: list[str] = None) -> Path:
     LOGGER.info(f"generation took {time.time() - start_time:.2f}s")
 
     if not dst_path.exists():
-        raise RuntimeError(
-            f"Unexpected issue: mosaic '{dst_path}' doesn't exist on disk."
+        print(
+            f"❌ unexpected issue: destination image '{dst_path}' doesn't exist on disk.",
+            file=sys.stderr,
         )
+        sys.exit(100)
+
     return dst_path
 
 

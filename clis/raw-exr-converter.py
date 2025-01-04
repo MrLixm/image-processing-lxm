@@ -6,6 +6,7 @@ import sys
 import time
 from pathlib import Path
 from typing import Any
+from typing import Optional
 
 import cocoon
 
@@ -208,6 +209,7 @@ def get_cli() -> argparse.ArgumentParser:
     parser.add_argument(
         "--exiftool",
         type=Path,
+        default=os.getenv("EXIFTOOL"),
         help=(
             "filesystem path to the exiftool executable (https://exiftool.org/)."
             'if not provided the value is retrieved from an "EXIFTOOL" environment variable.'
@@ -273,18 +275,30 @@ def run_cli(argv: list[str] = None):
         stream=sys.stdout,
     )
 
-    default_exiftool = os.getenv("EXIFTOOL")
-
     input_path: Path = parsed.input_path
     output_path: Path = parsed.output_path
-    exiftool: Path = parsed.exiftool or (
-        Path(default_exiftool) if default_exiftool else None
-    )
+    exiftool: Optional[Path] = parsed.exiftool
+    if exiftool:
+        exiftool = Path(exiftool)
     overwrite_existing: bool = parsed.overwrite_existing
     colorspace: str = parsed.colorspace
     whitebalance: str = parsed.whitebalance
     preset: str = parsed.preset
     exposure_shift: float = parsed.exposure_shift
+
+    if not exiftool:
+        print(
+            f"❌ no EXIFTOOL executable path could be found",
+            file=sys.stderr,
+        )
+        sys.exit(11)
+
+    elif not exiftool.exists():
+        print(
+            f"❌ given EXIFTOOL executable path doesn't exist: {exiftool}",
+            file=sys.stderr,
+        )
+        sys.exit(10)
 
     if colorspace == _COLORSPACE_NATIVE:
         output_color = rawpy.ColorSpace.raw
@@ -312,9 +326,9 @@ def run_cli(argv: list[str] = None):
 
     if dst_file_path.exists() and not overwrite_existing:
         print(
-            f"Destination file '{dst_file_path}' already exists and overwrite disabled."
+            f"❗ destination file '{dst_file_path}' already exists and overwrite disabled."
         )
-        return
+        sys.exit(0)
 
     preset: ConversionPreset = PRESETS[preset]
 
@@ -368,9 +382,11 @@ def run_cli(argv: list[str] = None):
     LOGGER.info(f"generation took {time.time() - start_time:.2f}s")
 
     if not dst_file_path.exists():
-        raise RuntimeError(
-            f"Unexpected issue: output '{dst_file_path}' doesn't exist on disk."
+        print(
+            f"❌ unexpected issue: destination image '{dst_file_path}' doesn't exist on disk.",
+            file=sys.stderr,
         )
+        sys.exit(100)
 
 
 if __name__ == "__main__":

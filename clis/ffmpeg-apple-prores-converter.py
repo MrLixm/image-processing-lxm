@@ -6,6 +6,7 @@ import subprocess
 import sys
 import time
 from pathlib import Path
+from typing import Optional
 
 from lxmimgproc.ffmpeg import FFmpegProResDataRate
 
@@ -73,7 +74,7 @@ def get_cli() -> argparse.ArgumentParser:
     parser.add_argument(
         "--ffmpeg",
         type=Path,
-        default=Path(os.getenv("FFMPEG")),
+        default=os.getenv("FFMPEG"),
         help=(
             "filesystem path to the ffmpeg executable."
             'if not provided the value is retrieved from an "FFMPEG" environment variable.'
@@ -125,7 +126,10 @@ def run_cli(argv: list[str] = None) -> Path:
     input_path: Path = parsed.input_path
     output_path: str = str(parsed.output_path)
 
-    ffmpeg: Path = parsed.ffmpeg
+    ffmpeg: Optional[Path] = parsed.ffmpeg
+    if ffmpeg:
+        ffmpeg = Path(ffmpeg)
+
     datarate: str = parsed.datarate
     datarate: FFmpegProResDataRate = getattr(FFmpegProResDataRate, datarate)
     quality: int = parsed.quality
@@ -135,6 +139,20 @@ def run_cli(argv: list[str] = None) -> Path:
     dst_path: str = dst_path.replace("{datarate}", datarate.name)
     dst_path: str = dst_path.replace("{quality}", str(quality))
     dst_path: Path = Path(dst_path)
+
+    if not ffmpeg:
+        print(
+            f"❌ no FFMEG executable path could be found",
+            file=sys.stderr,
+        )
+        sys.exit(11)
+
+    elif not ffmpeg.exists():
+        print(
+            f"❌ given FFMEG executable path doesn't exist: {ffmpeg}",
+            file=sys.stderr,
+        )
+        sys.exit(10)
 
     start_time = time.time()
     LOGGER.info(f"converting '{input_path}' to '{output_path}'")
@@ -149,9 +167,12 @@ def run_cli(argv: list[str] = None) -> Path:
     LOGGER.info(f"conversion took {time.time() - start_time:.2f}s")
 
     if not dst_path.exists():
-        raise RuntimeError(
-            f"Unexpected issue: mosaic '{dst_path}' doesn't exist on disk."
+        print(
+            f"❌ unexpected issue: destination video '{dst_path}' doesn't exist on disk.",
+            file=sys.stderr,
         )
+        sys.exit(100)
+
     return dst_path
 
 
