@@ -12,6 +12,12 @@ Personal resources for image-processing which include topics like :
 
 ## content
 
+You can find 3 software components:
+
+- _libraries_: collection of reusable code
+- _clis_: command line interfaces programs
+- _scripts_: entry point mixing the usage of _libraries_ and _clis_
+
 | tool                                                                         | description                                                 | type    | tag                                                 |
 |------------------------------------------------------------------------------|-------------------------------------------------------------|---------|-----------------------------------------------------|
 | [raw-to-dng.py](scripts/raw-to-dng.py)                                       | batch converting raw files to dng                           | script  | ![photo](https://img.shields.io/badge/photo-43896b) |
@@ -41,7 +47,7 @@ After getting one you can edit the [pyproject.toml](pyproject.toml) file accordi
 downloaded those wheels OR rename it as specified in the pyproject.toml.
 
 
-## installation
+## usage
 
 Project is managed through [uv](https://docs.astral.sh/uv/).
 
@@ -52,8 +58,12 @@ cd somewhere
 # the git clone step can be replaced by a manual download of the repo
 git clone https://github.com/MrLixm/image-processing-lxm.git
 cd image-processing-lxm
-uv run ./scripts/raw-exr-converter.py --help
+uv run ./scripts/raw-exr-converter.py
 ```
+
+You will usually to edit the global variables in the scripts to replace
+with path for your system. You can also directly use the [clis](clis) instead
+of the scripts wrapper.
 
 
 ## runtime pre-requistes
