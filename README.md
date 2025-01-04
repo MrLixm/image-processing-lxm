@@ -19,7 +19,7 @@ Personal resources for image-processing which include topics like :
 | [rw2-to-dng.py](scripts/rw2-to-dng.py)                                       | batch converting panasonic raw file to dng (personal use)   | script  | ![photo](https://img.shields.io/badge/photo-43896b) |
 | [mosaic-generator.py](scripts/mosaic-generator.py)                           | combine multiple image to a single big mosaic of image      | script  | ![photo](https://img.shields.io/badge/photo-43896b) |
 | [ffmpeg-apple-prores-converter.py](scripts/ffmpeg-apple-prores-converter.py) | encode to apple prores using ffmpeg                         | script  | ![video](https://img.shields.io/badge/video-4c78a6) |
-| [lxmimgproc](python/libraries/lxmimgproc)                                    | python wrapper to interract with i-o libraries              | library | ![photo](https://img.shields.io/badge/photo-43896b) |
+| [lxmimgproc](libraries/lxmimgproc)                                           | python wrapper to interract with i-o libraries              | library | ![photo](https://img.shields.io/badge/photo-43896b) |
 
 ## usage pre-requisites
 
@@ -37,7 +37,7 @@ to try to find wheels made by other online:
 * upcoming official wheels, still in
   development (no png support): https://github.com/AcademySoftwareFoundation/OpenImageIO/actions/runs/11613214259/job/32338496571
 
-After getting one you can edit the the [pyproject.toml](pyproject.toml) file according to where you
+After getting one you can edit the [pyproject.toml](pyproject.toml) file according to where you
 downloaded those wheels OR rename it as specified in the pyproject.toml.
 
 
