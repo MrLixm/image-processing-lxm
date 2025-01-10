@@ -37,17 +37,28 @@ Most tool (except _plugins_) will require python and some dependencies.
 
 - [uv](https://docs.astral.sh/uv/) is [installed](https://docs.astral.sh/uv/getting-started/installation/)
 - You have access to an [OpenImageIO](https://openimageio.readthedocs.io) python wheel.
+- you don't need to install python as `uv` will manage it for you
 
 ### OpenImageIO wheels
 
 As useful as OpenImageIO is, it currently doesn't ships official python wheels
-and need to be manually compiled. As it's a complex task, its usuyally best
-to try to find wheels made by other online:
+and need to be manually compiled. As it's a complex task, its usually best
+to try to find wheels made by others online:
+
+Your best bet right now is using the **upcoming** official wheels (=still in 
+development, but usable) : 
+- https://github.com/AcademySoftwareFoundation/OpenImageIO/actions/runs/12672115108
+- click the action that match your OS + python version (3.10 for this project)
+- click the `Run actions/upload-artifact...` step to expand it
+- in the logs that open, click the url link at the end
+- this should download a .zip that you can extract to retrieve the .whl file
+- in the `pyproject.toml` change the last `openimageio=` line by replacing the
+  `path=` with the path where you can find your .whl
+
+Else some other sources:
 
 * https://github.com/ArchPlatform/oiio-python/releases
 * https://github.com/cgohlke/win_arm64-wheels/releases/tag/v2023.9.30
-* upcoming official wheels, still in
-  development (no png support): https://github.com/AcademySoftwareFoundation/OpenImageIO/actions/runs/11613214259/job/32338496571
 
 After getting one you can edit the [pyproject.toml](pyproject.toml) file according to where you
 downloaded those wheels OR rename it as specified in the pyproject.toml.
@@ -57,10 +68,11 @@ downloaded those wheels OR rename it as specified in the pyproject.toml.
 
 Project is managed through [uv](https://docs.astral.sh/uv/).
 
-Assuming uv and git are installed and available on your system:
+Assuming uv and git are installed and available on your system, open a 
+terminal and execute the following commands:
 
 ```shell
-cd somewhere
+cd path/you/want/to/download/the/project/to
 # the git clone step can be replaced by a manual download of the repo
 git clone https://github.com/MrLixm/image-processing-lxm.git
 cd image-processing-lxm
