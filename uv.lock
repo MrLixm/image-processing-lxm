@@ -87,8 +87,7 @@ dev = [
 requires-dist = [
     { name = "cocoon", git = "https://github.com/MrLixm/cocoon.git" },
     { name = "numpy", specifier = "==1.26.*" },
-    { name = "openimageio", marker = "python_full_version != '3.10.*' or sys_platform != 'win32'" },
-    { name = "openimageio", marker = "python_full_version == '3.10.*' and sys_platform == 'win32'", path = "vendor/OpenImageIO/OpenImageIO-2.2.18.0-cp310-cp310-win_amd64.whl" },
+    { name = "openimageio", specifier = "==3.0.*" },
     { name = "rawpy", specifier = "==0.19" },
 ]
 
@@ -129,10 +128,11 @@ wheels = [
 
 [[package]]
 name = "openimageio"
-version = "2.2.18.0"
-source = { path = "vendor/OpenImageIO/OpenImageIO-2.2.18.0-cp310-cp310-win_amd64.whl" }
+version = "3.0.3.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/75/c6/b9975500202f0a7d1eabb527972549efe29c4d044eb3418bfda6287245b2/openimageio-3.0.3.1.tar.gz", hash = "sha256:5f39c51f6a092dfc203b1dc39628f0839e200cd3ec63d7e459c1a0eca0543401", size = 6034422 }
 wheels = [
-    { filename = "openimageio-2.2.18.0-cp310-cp310-win_amd64.whl", hash = "sha256:c81d9e67ad62739b29038e04ce293c7030cd8d74157db0a27cbc27daf7fe3833" },
+    { url = "https://files.pythonhosted.org/packages/73/d4/3f9b0686c039ac622c6900b0e18e7194c7752889af49e00a3f7107adbe3a/openimageio-3.0.3.1-cp310-cp310-win_amd64.whl", hash = "sha256:6a967f5f6f3439d64006f93bf195e26e8773f1ea2cbc9357ef8ef5db9a9e894c", size = 7867571 },
 ]
 
 [[package]]

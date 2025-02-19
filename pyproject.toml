@@ -7,7 +7,7 @@ requires-python = "==3.10.*"
 dependencies = [
     "cocoon",
     "numpy==1.26.*",
-    "openimageio",
+    "openimageio==3.0.*",
     "rawpy==0.19",
 ]
 
@@ -24,4 +24,3 @@ environments = ["sys_platform == 'win32'"]
 
 [tool.uv.sources]
 cocoon = { git = "https://github.com/MrLixm/cocoon.git" }
-openimageio = { path = "vendor/OpenImageIO/OpenImageIO-2.2.18.0-cp310-cp310-win_amd64.whl", marker = "sys_platform == 'win32' and python_version == '3.10'" }
