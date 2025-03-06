@@ -36,33 +36,7 @@ Each tool should come with its own documentation for details.
 Most tool (except _plugins_) will require python and some dependencies.
 
 - [uv](https://docs.astral.sh/uv/) is [installed](https://docs.astral.sh/uv/getting-started/installation/)
-- You have access to an [OpenImageIO](https://openimageio.readthedocs.io) python wheel.
 - you don't need to install python as `uv` will manage it for you
-
-### OpenImageIO wheels
-
-As useful as OpenImageIO is, it currently doesn't ships official python wheels
-and need to be manually compiled. As it's a complex task, its usually best
-to try to find wheels made by others online:
-
-Your best bet right now is using the **upcoming** official wheels (=still in 
-development, but usable) : 
-- https://github.com/AcademySoftwareFoundation/OpenImageIO/actions/runs/12672115108
-- click the action that match your OS + python version (3.10 for this project)
-- click the `Run actions/upload-artifact...` step to expand it
-- in the logs that open, click the url link at the end
-- this should download a .zip that you can extract to retrieve the .whl file
-- in the `pyproject.toml` change the last `openimageio=` line by replacing the
-  `path=` with the path where you can find your .whl
-
-Else some other sources:
-
-* https://github.com/ArchPlatform/oiio-python/releases
-* https://github.com/cgohlke/win_arm64-wheels/releases/tag/v2023.9.30
-
-After getting one you can edit the [pyproject.toml](pyproject.toml) file according to where you
-downloaded those wheels OR rename it as specified in the pyproject.toml.
-
 
 ## usage
 
@@ -83,6 +57,9 @@ You will usually to edit the global variables in the scripts to replace
 with path for your system. You can also directly use the [clis](clis) instead
 of the scripts wrapper.
 
+If that can help I recorded for someone a quick video that explains how to use 
+[raw-exr-converter.py](scripts/raw-exr-converter.py): https://youtu.be/-w_OqmZ0-NU
+
 
 ## runtime pre-requistes
 
@@ -93,11 +70,10 @@ some of the tools assume you have specific software available on your system:
 | download  | https://ffmpeg.org/download.html                                                     |
 | configure | expected to have the path to the executable set in the `FFMPEG` environment variable |
 
-| OIIOTOOL  | https://openimageio.readthedocs.io/en/latest/oiiotool.html                                                           |
-|-----------|----------------------------------------------------------------------------------------------------------------------|
-| download  | https://www.patreon.com/posts/openimageio-oiio-63609827                                                              |
-| download  | find it in any houdini installation. ex: `C:\Program Files\Side Effects Software\Houdini 20.5.332\bin\hoiiotool.exe` |
-| configure | expected to have the path to the executable set in the `OIIOTOOL` environment variable                               |
+| OIIOTOOL  | https://openimageio.readthedocs.io/en/latest/oiiotool.html |
+|-----------|------------------------------------------------------------|
+| download  | managed with python dependencies through uv                |
+| configure | /                                                          |
 
 | EXIFTOOL  | https://exiftool.org/                                                                  |
 |-----------|----------------------------------------------------------------------------------------|

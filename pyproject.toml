@@ -1,6 +1,6 @@
 [project]
 name = "image-processing-lxm"
-version = "1.0.0"
+version = "1.0.1"
 description = "Personal resources for image-processing. "
 readme = "README.md"
 requires-python = "==3.10.*"

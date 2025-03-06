@@ -1,7 +1,7 @@
 import argparse
 import logging
 import math
-import os
+import shutil
 import subprocess
 import sys
 import time
@@ -10,6 +10,7 @@ from typing import Optional
 
 FILENAME = Path(__file__).stem
 LOGGER = logging.getLogger(FILENAME)
+OIIOTOOL = shutil.which("oiiotool")
 
 
 def generate_image_mosaic(
@@ -104,7 +105,7 @@ def get_cli() -> argparse.ArgumentParser:
     parser.add_argument(
         "--oiiotool",
         type=Path,
-        default=os.getenv("OIIOTOOL"),
+        default=OIIOTOOL,
         help=(
             "filesystem path to the oiiotool executable."
             'if not provided the value is retrieved from an "OIIOTOOL" environment variable.'

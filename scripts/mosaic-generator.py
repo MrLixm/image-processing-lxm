@@ -10,8 +10,6 @@ CLIPATH = CLISDIR / "mosaic-generator.py"
 INPUT_DIR = Path(r"G:\personal\photo\workspace\dcim\2023\2023_12_27_tarentaise")
 DST_PATH = Path(r"Z:\packages-dev\lxmImageProcessing\tmp") / "mosaic2.jpg"
 
-OIIOTOOL = Path(r"F:\softwares\apps\oiio\build\2.3.10\oiiotool.exe")
-
 
 def main():
     print(f"💬 processing '{INPUT_DIR.name}' ...")
@@ -22,8 +20,6 @@ def main():
         str(INPUT_DIR),
         "--image-extensions",
         "jpg",
-        "--oiiotool",
-        str(OIIOTOOL),
         # "--anamorphic-desqueeze",
         # "1.8",
     ]
